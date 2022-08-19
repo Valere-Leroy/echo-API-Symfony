@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+		<div class="row">
+			<div class="echo-card-conv mt-5">
+				<h2 class="mx-3 text-white">Message de contact
+					{{contact.id}}</h2>
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						<div class="alert alert-{{label}} alert-dismissible fade show col-12" role="alert">
+							<strong>{{label}}</strong>
+							{{ message }}
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div><br>
+					{% endfor %}
+				{% endfor %}
+				<div class="jumbotron jumbotron-fluid ml-3 mr-3 text-secondary">
+					<div class="container">
+						<h3>Envoyé par
+							{{ contact.username }}
+							le
+							{{ contact.createdAt|date('d/m/Y h:i:s') }}</h3>
+						<p class="pt-3">{{ contact.content }}</p>
+					</div>
+				</div>
+
+				{{ form_start(form, { attr: { class: 'col-12 p-5'}}) }}
+				{{ form_row(form.email, { attr: { class: 'content-message'}})}}
+				{{ form_row(form.answer, { attr: { class: 'content-message'}})}}
+				{{ form_row(form.submit, { attr: { class: 'btn-conv-message p-2'}})}}
+				{{ form_end(form)}}
+			</div>
+		</div>
+
+
+	</div>
+{% endblock %}

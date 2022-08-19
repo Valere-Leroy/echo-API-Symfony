@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma conversation
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+
+			<div class="echo-content-page row">
+				<h2 class="col-12 text-white text-center">Nouvelle conversation</h2>
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						<div class="alert alert-{{label}} alert-dismissible fade show col-12" role="alert">
+							<strong>{{label}}</strong>
+							{{ message }}
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div><br>
+					{% endfor %}
+				{% endfor %}
+
+				<form action="" method="POST" class="col-12 d-flex flex-column mb-3">
+					<input type="text" required class="content-message" name="title" rows="6" placeholder="Le titre de votre conversation"></input>
+					<textarea required class="content-message" name="content" rows="6" placeholder="Le contenu de votre premier message"></textarea>
+					<button type="submit" class="btn-conv-message" data-toggle="tooltip" title="Créer la conversation">Créer la conversation et chercher des membre ?</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des échos
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+		<div class="row">
+			{% include "admin/partials/adminNavbar.html.twig" %}
+			<div class="col-12 d-flex nav-admin">
+				<h2 class="mr-auto text-white">Liste de tous les échos (
+					{{ echos|length }}
+					)
+					{% if app.request.request.get('search') != "" %}
+						pour "{{ app.request.request.get('search') }}"
+					{% endif %}
+				</h2>
+				<form method="POST" class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" name="search" type="search" placeholder="id, titre, contenu, auteur" aria-label="Search">
+					<button class="btn btn-conv-message p-2 my-2 my-sm-0" type="submit">Chercher</button>
+				</form>
+			</div>
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="alert alert-{{label}} alert-dismissible fade show col-12" role="alert">
+						<strong>{{label}}</strong>
+						{{ message }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div><br>
+				{% endfor %}
+			{% endfor %}
+			<table class="nav-admin col-12 table table-borderless table-user text-white text-center">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Id
+							<a href="?filter=id&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=id&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col">Titre
+							<a href="?filter=title&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=title&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col">Modération
+							<a href="?filter=isModerated&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=isModerated&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col">Auteur
+							<a href="?filter=user&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=user&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col">Posté le
+							<a href="?filter=createdAt&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=createdAt&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				{% if app.request.request.get('search') != "" %}
+					<tbody data-search="{{ app.request.request.get('search') }}">
+					{% else %}
+						<tbody>
+						{% endif %}
+
+						{% for key, echo in echos %}
+							<tr>
+								<th scope="row">{{key}}</th>
+								<td>{{ echo.id }}</td>
+								<td>{{ echo.title }}</td>
+								<td>
+									<label class="btn-moderate" data-id="{{ echo.id }}">
+										<input type="checkbox" {{ (echo.isModerated == 1) ? 'checked' : '' }} data-toggle="toggle">
+									</label>
+								</td>
+								<td>
+									<a href="{{path('admin_user_edit', { "id" : echo.user.id })}}">{{ echo.user.username }}</a>
+								</td>
+								<td>{{ echo.createdAt|date("d/m/Y") }}</td>
+								<td>
+									<a href="{{path('admin_echo_edit', { "id" : echo.id })}}">
+										<i class="text-success fa fa-pencil" aria-hidden="true"></i>
+									</a>|
+									<a href="{{path('admin_echo_delete', { "id" : echo.id })}}">
+										<i class="text-danger fa fa-trash" aria-hidden="true"></i>
+									</a>
+								</td>
+
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	{% endblock %}

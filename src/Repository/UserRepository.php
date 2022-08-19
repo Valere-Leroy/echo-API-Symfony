@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Tag;
+use App\Entity\User;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
+/**
+ * @method User|null find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null findOneBy(array $criteria, array $orderBy = null)
+ * @method User[]    findAll()
+ * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class UserRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, User::class);
+    }
+
+    public function findByTags(Array $tags)
+    {
+
+        $qb = $this->createQueryBuilder("u")
+            ->select('u')
+            ->andWhere(':tags MEMBER OF u.tags')
+                    ->setParameter(':tags', $tags);
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findByUsername(string $search)
+    {
+
+        $qb = $this->createQueryBuilder("u")
+            ->select('u')
+            ->andWhere('u.username LIKE :search')
+            ->setParameter(':search', '%'.$search.'%');
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    // /**
+    //  * @return User[] Returns an array of User objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('u.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
+}

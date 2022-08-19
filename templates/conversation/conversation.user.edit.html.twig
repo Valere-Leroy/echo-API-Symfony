@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma conversation
+{% endblock %}
+
+{% block body %}
+{% include "conversation/partials/navbar.html.twig" %}
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="echo-content-page row align-items-start">
+			<h2 class="col-12 text-white text-center">
+				Ajouter des utilisateur à votre conversation ?
+			</h2>
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="alert alert-{{label}} alert-dismissible fade show ml-3 col-12" role="alert">
+						<strong>{{label}}</strong>
+						{{ message }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div><br>
+				{% endfor %}
+			{% endfor %}
+			<div class="col-12 pb-3 mb-3 borde-bottom">
+				<form method="POST" class="form-inline my-2 my-lg-0 row">
+					<input class="col form-control mr-sm-2" name="search" type="search" placeholder="Nom d'utilisateur" aria-label="Search">
+					<button class="col-md-auto btn btn-conv-message p-2 my-2 my-sm-0" type="submit">Chercher</button>
+				</form>
+			</div>
+			{% if users is defined %}
+
+				{% if users|length > 0 and search != '' %}
+					<span class="text-secondary">Résultats pour pour la recherche: "{{search}}"</span>
+					<table class="echo-card-conv col-12 table table-borderless table-user">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Nom de l'utilisateur</th>
+								<th scope="col">Membre</th>
+							</tr>
+						</thead>
+						<tbody data-search="{{search}}">
+							{% for key, user in users %}
+								<tr>
+									<th scope="row">{{key}}</th>
+									<td>{{user.username}}</td>
+									<td>
+										<label class="btn-edit-user" data-conv-id="{{conv.id}}" data-id="{{user.id}}">
+											<input type="checkbox" data-toggle="toggle" {{ (user in conv.users) ? 'checked' : '' }} data-size="mini" data-on="oui" data-off="non" data-onstyle="success" data-offstyle="danger"></td>
+									</td>
+								</tr>
+							</label>
+						</tbody>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+
+	{% else %}
+		<h4 class="col-12 text-secondary text-center">
+			Désolé pas d'utilisateurs pour la recherche: "{{search}}"
+		</h4>
+	{% endif %}
+
+{% else %}
+
+	<h4 class="col-12 text-secondary text-center">
+		"Rechercher des noms de membres !"
+	</h4>
+{% endif %}
+<div class="col-12 row justify-content-around">
+<a href="{{ path('conv_show',{'id': conv.id }) }}" class="col-5 text-center mt-5 btn-conv-message mb-5">Voir la conversation</a>
+<a href="{{ path('conv_tag_edit',{'id': conv.id }) }}" class="col-5 text-center mt-5 btn-conv-message mb-5">Ajouter des tags</a>
+</div>
+<span class="text-secondary">Membre actuel de la conversation</span>
+<table class="echo-card-conv col-12 table table-borderless table-user">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Nom de l'utilisateur</th>
+			<th scope="col">Membre</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for key, user in conv.users %}
+			<tr>
+				<th scope="row">{{key}}</th>
+				<td>{{user.username}}</td>
+				<td>
+					<label class="btn-edit-user" data-conv-id="{{conv.id}}" data-id="{{user.id}}">
+						<input type="checkbox" data-toggle="toggle" {{ (user in conv.users) ? 'checked' : '' }} data-size="mini" data-on="oui" data-off="non" data-onstyle="success" data-offstyle="danger"></td>
+				</td>
+			</tr>
+		</label>
+	</tbody>
+</tr>{% endfor %}</tbody></table></div></div></div>{% endblock %}

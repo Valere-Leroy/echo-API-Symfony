@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma conversation
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+		<div class="row justify-content-center">
+			<h2 class="col-9 text-white text-center tag-edit-title">
+				Ajouter des tags à votre conversation ?</h2>
+			<div class="col-9 edit-tag-list">
+				{% for tag in tags %}
+						{% if tag in conv.tags %}
+							<button data-sub="true" data-id="{{tag.id}}" data-conv-id="{{conv.id}}" class="btn btn-sm btn-edit-tag btn-edit-tag_sub">{{tag.name}}
+								({{tag.users|length}})</button>
+						{% else %}
+							<button data-sub="false" data-id="{{tag.id}}" data-conv-id="{{conv.id}}" class="btn btn-sm btn-edit-tag btn-edit-tag_unsub">{{tag.name}}
+								({{tag.users|length}})</button>
+						{% endif %}
+				{% endfor %}
+			</div>
+			<a href="{{ path('conv_show',{'id': conv.id }) }}" class="col-9 text-center mt-5 btn-conv-message">Voir la conversation</a>
+		</div>
+	</div>
+{% endblock %}

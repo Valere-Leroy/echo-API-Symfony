@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification du commentaire
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+    <h2 class="text-center text-white mt-3">Modification du commentaire</h2>
+        <div class="row">
+            <div class="col-12">
+            {{ form_start(form, { attr: { class: 'col-12 echo-card-conv p-5'}}) }}
+            {{ form_row(form.user, { attr: { class: 'content-message'}})}}
+            {{ form_row(form.content, { attr: { class: 'content-message'}})}}
+            {{ form_row(form.isModerated, { attr: { 'data-toggle':"toggle"}})}}
+            {{ form_row(form.echoPost, { attr: { class: 'content-message'}})}}
+                <button class="btn-conv-message p-2">Enregistrer</button>
+            {{ form_end(form)}}
+            </div>
+        </div>
+	</div>
+{% endblock %}

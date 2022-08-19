@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de l'utilisateur
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+    <h2 class="text-center text-white mt-3"> Modification de l'utilisateur '{{ user.username}}'</h2>
+    <a class="btn btn-primary" href="{{path('admin_user_echo_list', { "id" : app.request.attributes.get('id') })}}" role="button"> <i class="fas fa-list"></i> Liste des écho de cet utilisteur</a>
+        <div class="row">
+            <div class="col-12">
+            {{ form_start(form, { attr: { class: 'col-12 echo-card-conv p-5'}}) }}
+            {{ form_row(form.username, { attr: { class: 'content-message'}})}}
+            {{ form_row(form.email, { attr: { class: 'content-message'}})}}
+            <div class="row col-12 echo-card-message ml-0 p-3">
+				{% for key, role in form.role %}
+					<div class="col-3 custom-checkbox">
+						{{ form_row(role, { attr: { 'data-toggle':"toggle", 'data-size':"mini" }}) }}
+					</div>
+				{% endfor %}
+			</div>
+            {{ form_row(form.avatar, { attr: { class: 'content-message'}})}}
+            {{ form_row(form.adress, { attr: { class: 'content-message'}})}}
+            {{ form_row(form.latitude, { attr: { class: 'content-message'}})}}
+            {{ form_row(form.longitude, { attr: { class: 'content-message'}})}}
+            {{ form_row(form.isActivated, { attr: { 'data-toggle':"toggle"}})}}
+                <button class="btn-conv-message p-2">Enregistrer</button>
+            {{ form_end(form)}}
+            </div>
+        </div>
+	</div>
+{% endblock %}

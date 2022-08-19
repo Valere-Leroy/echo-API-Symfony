@@ -1,0 +1,370 @@
+.highlight {
+    background-color: rgb(189, 189, 109);
+}
+
+Body {
+    background: rgb(19, 20, 35);
+    font-family: 'Roboto', sans-serif;
+}
+
+.echoNavbar {
+    background: #131423;
+    border-bottom: 1px solid #131423;
+    box-shadow: 0px -8px 23px #a3c4bc;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.75;
+    letter-spacing: 0.00938em;
+}
+
+.echoLogout {
+    padding-left: 12px;
+    color: white;
+    border-radius: 50%;
+    font-size: 1.25rem;
+}
+
+.echo-user-navbar {
+    padding-right: 1em;
+}
+
+.echo-link-navbar {
+    padding-right: 16px;
+    padding-bottom: 1px;
+    padding-top: 2px;
+}
+
+.echo-bars-navbar {
+    padding: 0 23px 0 11px;
+}
+
+.echo-content-page {
+    border-left: 1px solid #252744;
+    border-right: 1px solid #252744;
+    height: 100%;
+    /*min-height: 80vh;*/
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 1em;
+}
+
+.echo-content-page a {
+    text-decoration: none;
+}
+
+.echo-content-page a:hover {
+    text-decoration: none;
+}
+
+.echo-messages-part {
+
+    box-shadow: 
+    0px 2px 1px -1px rgba(0,0,0,0.2), 
+    0px 1px 1px 0px rgba(0,0,0,0.14), 
+    0px 1px 3px 0px rgba(0,0,0,0.12);
+    border-top: 1px solid #33365e;
+    padding-bottom: 0.7em;
+    margin-bottom: 1em;
+
+}
+
+.echo-card-message {
+    color: white;
+    background-color: #505269;
+    border-radius: 4px;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    padding: 0;    
+    margin: 1em 16px;
+}
+
+.echo-card-message__content {
+    color: white;
+    padding: 0 16px 24px 16px;    
+    margin: 0 16px 1em;
+    font-size: 0.8125rem;
+}
+
+.echo-card-conv__tag-content {
+    padding: 0 32px;    
+    display: flex;
+    flex-wrap: wrap;
+    color: black;
+}
+
+.echo-card-conv__tag-button {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+    background-color: #E0245E;
+    line-height: 0.9;
+    border-radius: 35px;
+    font-size: 0.8125rem;
+    color: black;
+    display: block;
+    text-align: center;
+}
+
+@media (min-width: 600px) {
+    .echo-content-page {
+        max-width: 600px!important;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .echo-card-conv__tag-content {
+        padding: 0 24px;
+    }
+
+    .echo-card-message {    
+        margin: 1em 24px;
+    }
+
+    .echo-card-message__content {    
+        margin: 0 24px 1em;
+    }
+}
+
+@media (min-width: 960px) {
+    .echo-content-page {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .echo-card-conv__tag-content {
+        padding: 0 32px;
+    }
+
+    .echo-card-message {    
+        margin: 1em 32px;
+    }
+
+    .echo-card-message__content {    
+        margin: 0 32px 1em;
+    }
+}
+
+.echo-card-conv {
+    color: white;
+    margin-bottom: 1em;
+    background-color: #252744;
+    border-radius: 4px;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    padding: 0;
+}
+
+
+.echo-card-conv__header-message {
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    color: white;
+}
+
+.echo-card-conv__header {
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    color: white;
+}
+
+.echo-card-conv__header:hover {
+    background-color: #33365e;
+}
+
+.echo-card-conv__header-avatar {
+    flex: 0 0 auto;
+    margin-right: 16px;
+    font-size: 1.2rem;
+}
+
+.echo-card-conv__header-content {
+    flex: 1 1 auto;
+}
+
+.echo-card-conv__header-title {
+    display: block;
+    font-size: 1em;
+}
+
+.echo-card-conv__header-subtitle {
+    display: block;
+    font-size: 0.875rem;
+}
+
+.echo-card-conv__members-content {
+    box-shadow: 
+        0px 2px 1px -1px rgba(0,0,0,0.2), 
+        0px 1px 1px 0px rgba(0,0,0,0.14), 
+        0px 1px 3px 0px rgba(0,0,0,0.12);
+    margin: 0 0 1em;
+    padding: 0 1em;
+    border-top: 1px solid #33365e;
+    color: white;
+    text-decoration: none!important;
+}
+.echo-card-conv__members-content:hover{
+    background-color: #33365e;
+    text-decoration: none!important;
+    
+}
+
+.echo-card-conv__members-content a {
+    color: white;
+    margin: 0;
+    padding: 1em 0;
+}
+
+.conv-icon {
+    margin-right: 0.25em;
+    font-size: 1.3em;
+}
+
+.echo-card-conv__messages-count {
+    margin: 0 16px 16px;
+}
+
+.content-message {
+    box-shadow: 1px 1px 10px #252744;
+    border: none;
+    border-bottom: 2px solid white;
+    margin-bottom: 1em;
+    background: rgb(19, 20, 35);
+    color: #c5d2e8;
+    font-size: 0.8125rem;
+    padding: 0.5em;
+}
+
+.content-message:focus {
+    border: none;
+    border-bottom: 2px solid #04a777;
+    outline:none;
+}
+
+.btn-conv-message {
+    border-radius: 2px;
+    font-weight: bold;
+    color: white;
+    background: #04a777;
+    border: none;
+    padding: 0.2em 0;
+}
+
+.btn-conv-message:hover {
+    background: #a3c4bc;
+    color: white;
+}
+
+.edit-tag-link {
+    color: white;
+    padding-left: 32px;
+}
+
+.edit-tag-link:hover {
+    color: rgb(146, 146, 146);
+}
+
+.tag-edit-title {
+    border-bottom: 2px solid white;
+    font-weight: 400;
+    padding: 3.25em 0 1.75em;
+}
+
+.btn-edit-tag {
+    border-radius: 35px;
+    margin: 9.6px;
+    color: #86868d;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.btn-edit-user-tag {
+    border-radius: 35px;
+    margin: 9.6px;
+    color: #86868d;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.btn-edit-no-user-tag {
+    border-radius: 35px;
+    margin: 9.6px;
+    color: #86868d;
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.btn-edit-tag_sub {
+    background: #E0245E;
+    color: black;
+    z-index: 1;
+}
+
+.btn-edit-tag_sub:hover {
+    background: rgb(170, 87, 113);
+    color: black;
+}
+
+.btn-edit-tag_unsub {
+    background: #b8b8bc;
+}
+
+.btn-edit-tag_unsub:hover {
+    background: rgb(170, 87, 113);
+}
+
+.edit-tag-list {
+    margin: 3em 0 0;
+    padding: 0;
+
+}
+
+.table-user tr {
+    border-bottom: 1px solid #33365e;
+
+}
+
+.table-user tr:nth-child(even) {
+    border-bottom: 1px solid #33365e;
+    background-color: #33365e;
+}
+ul li a:hover {
+    border: none;
+}
+
+.nav-admin{
+    background: #252744;
+}
+
+
+.active-admin {
+    background: #33365e;
+}
+
+.ul-admin {
+    border-bottom: 1px solid #33365e;
+}
+
+.link-front-echo-tag {
+    color: #04a777;
+    font-size: 2.1em;
+    z-index: 2;
+}
+.link-front-echo-tag:hover {
+    color: #a3c4bc;
+}
+
+[name='echo_form'] .form-check {
+    padding-left: 0;
+
+}
+[name='commentary_form'] .form-check {
+    padding-left: 0;
+
+}
+
+[name='user'] .form-check {
+    padding-left: 0;
+
+}

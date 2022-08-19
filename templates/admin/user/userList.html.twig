@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User list
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+		<div class="row">
+			{% include "admin/partials/adminNavbar.html.twig" %}
+			<h2 class="col-12 nav-admin text-white mb-0">Liste des utilisateurs</h2>
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="alert alert-{{label}} alert-dismissible fade show col-12" role="alert">
+						<strong>{{label}}</strong>
+						{{ message }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div><br>
+				{% endfor %}
+			{% endfor %}
+			<table class="nav-admin col-12 table table-borderless table-user text-white text-center">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Nom d'utilisateur</th>
+						<th scope="col">Email</th>
+						<th scope="col">Role</th>
+						<th scope="col">Adresse</th>
+						<th scope="col">Compte Activé</th>
+						<th scope="col">Inscris depuis:</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key, user in users %}
+						<tr>
+							<th scope="row">{{key}}</th>
+							<td>{{ user.username }}</td>
+							<td>{{ user.email }}</td>
+							<td>{{ user.role|join }}</td>
+							<td>{{ user.adress }}</td>
+							<td>
+								<label class="btn-activate" data-id="{{ user.id }}">
+									<input type="checkbox" {{ (user.isActivated == 1) ? 'checked' : '' }} data-toggle="toggle">
+								</label>
+							</td>
+							<td>{{ user.createdAt|date("d/m/Y") }}</td>
+							<td>
+								<a href="{{ path('admin_user_edit', {id: user.id}) }}">
+									<i class="text-success fas fa-user-edit"></i>
+								</a>
+								|
+								<a href="{{ path('admin_user_delete', {id: user.id}) }}">
+									<i class="text-danger fas fa-trash-alt"></i>
+								</a>
+							</td>
+						</tr>
+					</td>
+				</tbody>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table></div></div>{% endblock %}

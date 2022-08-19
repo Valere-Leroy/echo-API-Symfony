@@ -1,0 +1,14 @@
+<ul class="nav nav-tabs col-12 mt-5 ul-admin">
+	<li class="nav-item">
+		<a class="nav-link nav-admin {{ app.request.attributes.get('_route') == 'admin' ? 'active-admin' : ''}}" href="{{ path('admin') }}">Liste des échos</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link nav-admin {{ app.request.attributes.get('_route') == 'admin_user_list' ? 'active-admin' : ''}}" href="{{ path('admin_user_list') }}">Liste des utilisateurs</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link nav-admin {{ app.request.attributes.get('_route') == 'admin_commentary_list' ? 'active-admin' : ''}}" href="{{ path('admin_commentary_list') }}">Liste des commentaires</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link nav-admin {{ app.request.attributes.get('_route') == 'contact_index' ? 'active-admin' : ''}}" href="{{ path('contact_index') }}">Liste des messages au staff</a>
+	</li>
+</ul>

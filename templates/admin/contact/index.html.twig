@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+		<div class="row">
+			{% include "admin/partials/adminNavbar.html.twig" %}
+			<h2 class="col-12 nav-admin text-white mb-0">Liste de tous les messages contact (
+				{{ contacts|length }}
+				)</h2>
+			{% for label, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="alert alert-{{label}} alert-dismissible fade show col-12" role="alert">
+						<strong>{{label}}</strong>
+						{{ message }}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div><br>
+				{% endfor %}
+			{% endfor %}
+			<table class="nav-admin col-12 table table-borderless table-user text-white text-center">
+				<thead>
+					<tr>
+						<th scope="col d-inline w-100">id
+							<a href="?filter=id&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=id&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+                        <th scope="col d-inline w-100">Date
+							<a href="?filter=createdAt&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=createdAt&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col d-inline w-100">Auteur
+							<a href="?filter=username&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=username&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col d-inline w-100">Contenu
+							<a href="?filter=content&order=ASC">
+								<i class="fa fa-caret-up" aria-hidden="true"></i>
+							</a>
+							<a href="?filter=content&order=DESC">
+								<i class="fa fa-caret-down" aria-hidden="true"></i>
+							</a>
+						</th>
+						<th scope="col d-inline w-100">Réponse</th>
+						<th scope="col">Répondre</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for contact in contacts %}
+						<tr>
+							<td>{{ contact.id }}</td>
+                            <td>{{ contact.createdAt|date("d/m/Y h:i:s") }}</td>
+							<td>{{ contact.username }}</td>
+                            <td>{{ contact.content|length > 50 ? contact.content|slice(0, 50) ~ '...' : contact.content  }}</td>
+							<td>
+							{% if contact.answer is defined %}
+								{{ contact.answer|length > 50 ? contact.answer|slice(0, 50) ~ '...' : contact.answer }}
+							{% else %}
+								-	
+							{% endif %}
+							</td>
+							<td style="font-size: 1.2em;">
+								<a href="{{ path('contact_answer',  {id: contact.id}) }}">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

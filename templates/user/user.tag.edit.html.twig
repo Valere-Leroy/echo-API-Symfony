@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des tags
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container">
+		<div class="row justify-content-center">
+			<h2 class="col-9 text-white text-center tag-edit-title">
+				S'inscrire à des tags ?</h2>
+			{% if app.user == "" %}
+				<h4 class="col-12 text-secondary text-center">
+					"Inscrivez-vous pour vous abonner à un tag !"
+				</h4>
+			{% endif %}
+			<div class="col-9 edit-tag-list d-flex flex-wrap">
+				{% for tag in tags %}
+					{% if app.user != "" %}
+						{% if tag in app.user.tags %}
+								<button data-sub="true" data-id="{{tag.id}}" data-count="{{tag.users|length}}" class="btn btn-sm btn-edit-user-tag btn-edit-tag_sub">{{tag.name}}
+									(<span>{{tag.users|length}}</span>)</button>
+						{% else %}
+								<button data-sub="false" data-id="{{tag.id}}" data-count="{{tag.users|length}}" class="btn btn-sm btn-edit-user-tag btn-edit-tag_unsub">{{tag.name}}
+									(<span>{{tag.users|length}}</span>)</button>
+						{% endif %}
+					{% else %}
+							<button data-sub="false" data-id="{{tag.id}}" class="btn btn-sm btn-edit-no-user-tag btn-edit-tag_unsub">{{tag.name}}
+								({{tag.users|length}})</button>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

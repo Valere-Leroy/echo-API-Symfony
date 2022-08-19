@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma conversation
+{% endblock %}
+
+{% block body %}
+	{% include "conversation/partials/navbar.html.twig" %}
+	<div class="container-fluid">
+		<div class="row justify-content-center">
+			<div class="echo-content-page row">
+				<h2 class="col-12 text-white text-center">Ma conversation</h2>
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						<div class="alert alert-{{label}} alert-dismissible fade show col-12" role="alert">
+							<strong>{{label}}</strong>
+							{{ message }}
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div><br>
+					{% endfor %}
+				{% endfor %}
+				<div class="echo-card-conv col-12">
+					<div class="echo-card-conv__header-message">
+						<div class="echo-card-conv__header-avatar">
+							<i class="fas fa-user-circle"></i>
+						</div>
+						<div class="echo-card-conv__header-content">
+							<div class="echo-card-conv__header-title">
+								{{conv.title}}</div>
+							<div class="echo-card-conv__header-subtitle text-muted">Créé par
+								{% if conv.author.id == app.user.id %}
+									vous même
+								{% else %}
+									{{conv.author.username}}
+								{% endif %}
+								le
+								{{conv.createdAt|date("d/m/Y")}}
+							</div>
+						</div>
+					</div>
+					<div class="echo-card-conv__tag-content">
+						{% for tag in conv.tags %}
+
+							<a class="btn btn-xs echo-card-conv__tag-button" href="#" role="button">
+								<span>{{ tag.name }}</span>
+							</a>
+
+						{% endfor %}
+
+					</div>
+					{% if app.user == conv.author %}
+						<a href="{{ path('conv_tag_edit',{'id': conv.id }) }}" class="edit-tag-link" data-toggle="tooltip" title="ajouter des tags à la conversation">
+							Ajouter des tags
+							<i class="fas fa-plus-circle"></i>
+						</a>
+					{% endif %}
+					<div class="echo-card-conv__members-content row">
+						<a data-toggle="collapse" href="#conv-{{conv.id}}" role="button" aria-expanded="false" aria-controls="conv-{{conv.id}}" class="col-12">
+
+							<span>Voir les membres de la conversation</span>
+
+						</a>
+
+						<div class="collapse" id="conv-{{conv.id}}">
+							<ul>
+								{% for user in conv.users %}
+
+									<li style="text-decoration: none;">{{user.username}}</li>
+								{% endfor %}
+								{% if app.user == conv.author %}
+									<a href="{{ path('conv_user_edit',{'id': conv.id }) }}" class="edit-tag-link mb-1" data-toggle="tooltip" title="ajouter des membres à la conversation">
+										Ajouter des membres
+										<i class="fas fa-plus-circle"></i>
+									</a>
+								{% endif %}
+							</ul>
+						</div>
+					</div>
+					<div class="d-flex justify-content-end">
+						<span class="echo-card-conv__messages-count d-flex  align-items-center">
+							<i class="far fa-comment-alt conv-icon"></i>
+							{{conv.messages|length}}</span>
+					</div>
+					<div class="echo-messages-part">
+						{% for message in conv.messages %}
+							<div class="echo-card-message">
+								<div class="echo-card-conv__header-message">
+									<div class="echo-card-conv__header-avatar">
+										<i class="fas fa-user-circle"></i>
+									</div>
+									<div class="echo-card-conv__header-content">
+										<div class="echo-card-conv__header-subtitle text-muted">posté par
+											{% if message.user.id == app.user.id %}
+												vous même
+											{% else %}
+												{{message.user.username}}
+											{% endif %}
+											le
+											{{message.createdAt|date("d/m/Y")}}
+										</div>
+									</div>
+								</div>
+								<div class="echo-card-message__content">
+									{{message.content}}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					<form action="{{ path('conv_message_add',{'id': conv.id }) }}" method="POST" class="col-12 d-flex flex-column mb-3">
+						<textarea class="content-message" name="content" rows="6" placeholder="Envoyer un nouveau message"></textarea>
+						<button type="submit" class="btn-conv-message" data-toggle="tooltip" title="Envoyer votre message">Envoyer le message</button>
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+App\Entity\Tag:
+    tag_{1..26}:
+        name (unique): '<tagTitle()>'
+        createdAt: '<dateTimeThisYear()>'
+
+App\Entity\User:
+    user_{1..30}:
+        username (unique) : '<firstname()>'
+        email (unique) : '<email()>'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$UKtg4qWjZS217YG6a/BINA\$Izj71u6eFKlnh5Vj6gt8kSTzAhIQPfPVr3nJe2QDAjw'
+        role: ['ROLE_USER']
+        activation_code (unique): '<asciify(***************)>'
+        adress : '<address()>'
+        isActivated: true
+        createdAt: '<dateTimeThisYear()>'
+        tags: '<numberBetween(4, 10)>x @tag_*'
+    admin:
+        username : 'admin'
+        email (unique) : 'echo.team@outlook.fr'
+        password: '\$argon2id\$v=19\$m=65536,t=4,p=1\$UKtg4qWjZS217YG6a/BINA\$Izj71u6eFKlnh5Vj6gt8kSTzAhIQPfPVr3nJe2QDAjw'
+        role: ['ROLE_ADMIN']
+        activation_code (unique): '<asciify(***************)>'
+        adress : '<address()>'
+        isActivated: true
+        createdAt: '<dateTimeThisYear()>'
+        tags: '<numberBetween(4, 10)>x @tag_*'
+
+App\Entity\EchoPost:
+    post_{1..60}:
+        user: '@user_*'
+        title: '<realText(20)>'
+        content : '50%? <realText()>'
+        is_moderated: <boolean(10)>
+        adress: '<address()>'
+        longitude: <longitude(48, 49)>
+        latitude: '<latitude(2.1, 3)>'
+        createdAt: '<dateTimeThisYear()>'
+        updatedAt : '30%? <dateTimeThisYear()>'
+        tags: '<numberBetween(1, 3)>x @tag_*'
+
+App\Entity\Notification:
+    notification_{1..150}:
+        user: '@user_*'
+        echoPost: '@post_*'
+        createdAt: '<dateTimeThisYear()>'
+        isValidated: '<boolean(50)>'
+
+App\Entity\Commentary:
+    commentary_{1..150}:
+        user: '@user_*'
+        echoPost: '@post_*'
+        isModerated: '<boolean(10)>'
+        content: '<realText()>'
+        createdAt: '<dateTimeThisYear()>'
+        updatedAt : '30%? <dateTimeThisYear()>'
+
+App\Entity\Vote:
+    vote_{1..200}:
+        user: '@user_*'
+        echoPost: '@post_*'
+        createdAt: '<dateTimeThisYear()>'
+
+App\Entity\StaffMessage:
+    staff_{1..50}:
+        username: '<firstname()>'
+        content : '<realText()>'
+        createdAt: '<dateTimeThisYear()>'
+        email (unique) : '<email()>'
+
+App\Entity\Conversation:
+    conversation_{1..60}:
+        author: '@user_*'
+        users: '<numberBetween(2, 5)>x @user_*'
+        tags: '<numberBetween(1, 3)>x @tag_*'
+        title: '<realText(70)>'
+        createdAt: '<dateTimeThisYear()>'
+
+App\Entity\Message:
+    Message_{1..500}:
+        user: '@user_*'
+        content : '<realText()>'
+        conversation: '@conversation_*'
+        createdAt: '<dateTimeThisYear()>'
